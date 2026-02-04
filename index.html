@@ -5,51 +5,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>I'm Sorry 🥺</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
 <style>
 body {
-    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    background: linear-gradient(to right, #fbc2eb, #a6c1ee);
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    padding-top: 50px;
-    overflow: hidden;
+    padding: 20px;
 }
 
 h1 {
+    font-family: 'Dancing Script', cursive;
     font-size: 50px;
-    color: #b30000;
+    color: #6a0572;
 }
 
-p {
-    font-size: 20px;
+.container {
+    margin-top: 20px;
+}
+
+input, textarea {
+    width: 80%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
 }
 
 button {
-    padding: 12px 25px;
+    padding: 10px 25px;
     font-size: 18px;
     border: none;
-    background: #ff4d4d;
+    background: #8e44ad;
     color: white;
-    border-radius: 10px;
+    border-radius: 20px;
     cursor: pointer;
 }
 
-#message {
+button:hover {
+    background: #6a0572;
+}
+
+#output {
     margin-top: 20px;
-    font-size: 24px;
-    color: green;
     display: none;
 }
 
+video {
+    width: 200px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
 .heart {
-    position: absolute;
-    color: red;
-    font-size: 20px;
-    animation: float 4s linear infinite;
+    position: fixed;
+    bottom: 0;
+    color: #ff6b81;
+    font-size: 22px;
+    animation: float 4s linear forwards;
 }
 
 @keyframes float {
-    from { transform: translateY(0); }
-    to { transform: translateY(-800px); }
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100vh);
+    }
 }
 </style>
 </head>
@@ -58,43 +81,90 @@ button {
 
 <h1>I'm Really Sorry 🥺</h1>
 
-<p id="text"></p>
+<div class="container">
 
-<button onclick="forgive()">Forgive Me?</button>
+<input type="text" id="name" placeholder="Enter name of person">
 
-<div id="message">Yay! Thank you for forgiving me ❤️</div>
+<textarea id="msg" placeholder="Write your apology message"></textarea>
 
-<audio autoplay loop>
-  <source src="https://www.fesliyanstudios.com/play-mp3/387">
-</audio>
+<button onclick="generate()">Create Apology</button>
+
+</div>
+
+<div id="output">
+
+<h2 id="finalText"></h2>
+
+<!-- STICKER STYLE VIDEO -->
+<video autoplay loop muted playsinline>
+  <source src="teddy.mp4" type="video/mp4">
+</video>
+
+<br>
+
+<button id="forgiveBtn" onclick="forgive()">Forgive Me?</button>
+
+<div id="thanks" style="display:none; font-size:22px; margin-top:10px;">
+Thank you for forgiving me ❤️
+</div>
+
+</div>
 
 <script>
-var i = 0;
-var txt = "I know I made a mistake. I hurt you and I feel really bad about it. Please forgive me. You mean a lot to me 💔";
-var speed = 60;
 
-function typeWriter() {
-  if (i < txt.length) {
-    document.getElementById("text").innerHTML += txt.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
+function generate() {
+
+  var name = document.getElementById("name").value;
+  var message = document.getElementById("msg").value;
+
+  if(name === "" || message === "") {
+      alert("Please fill both fields");
+      return;
   }
+
+  document.getElementById("finalText").innerHTML =
+  "Dear " + name + ",<br><br>" + message;
+
+  document.getElementById("output").style.display = "block";
 }
 
-typeWriter();
+let clicked = false;
 
 function forgive() {
-  document.getElementById("message").style.display = "block";
 
-  for(let i=0; i<30; i++) {
+  if(clicked) return;
+
+  clicked = true;
+
+  document.getElementById("thanks").style.display = "block";
+
+  document.getElementById("forgiveBtn").disabled = true;
+
+  let count = 0;
+
+  let heartInterval = setInterval(() => {
+
+      if(count >= 20) {
+          clearInterval(heartInterval);
+          return;
+      }
+
       let heart = document.createElement("div");
       heart.className = "heart";
       heart.innerHTML = "❤️";
       heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+
       document.body.appendChild(heart);
-  }
+
+      setTimeout(() => {
+          heart.remove();
+      }, 4000);
+
+      count++;
+
+  }, 150);
 }
+
 </script>
 
 </body>
