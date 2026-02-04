@@ -21,20 +21,15 @@ h1 {
     color: #6a0572;
 }
 
-#messageBox {
-    margin-top: 20px;
-    font-size: 20px;
-    color: #333;
-}
-
 button {
-    padding: 10px 25px;
+    padding: 12px 25px;
     font-size: 18px;
     border: none;
     background: #8e44ad;
     color: white;
-    border-radius: 20px;
+    border-radius: 25px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 button:hover {
@@ -47,21 +42,27 @@ video {
     margin-top: 10px;
 }
 
+#apologyBox {
+    display: none;
+    margin-top: 20px;
+    background: rgba(255,255,255,0.6);
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 18px;
+    color: #333;
+}
+
 .heart {
     position: fixed;
     bottom: 0;
-    color: #c084fc;   /* PURPLE HEARTS */
+    color: #c084fc;
     font-size: 22px;
     animation: float 4s linear forwards;
 }
 
 @keyframes float {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-100vh);
-    }
+    from { transform: translateY(0); }
+    to { transform: translateY(-100vh); }
 }
 </style>
 </head>
@@ -70,35 +71,45 @@ video {
 
 <h1>I'm Really Sorry 🥺</h1>
 
-<div id="messageBox">
-
-<!-- EDIT NAME AND MESSAGE HERE -->
-
-<p>
-hey, <b>Cutiee</b>,<br><br>
-
-I know I made a mistake and I hurt you.  
-I never wanted to make you sad.  
-You mean a lot to me and I truly feel sorry from my heart.  
-Please forgive me 🥺💔  
-</p>
-
-</div>
-
-<!-- STICKER VIDEO -->
+<!-- Sticker Video -->
 <video autoplay loop muted playsinline>
   <source src="teddy.mp4" type="video/mp4">
 </video>
 
-<br><br>
+<br>
 
-<button id="forgiveBtn" onclick="forgive()">Forgive Me?</button>
+<button onclick="showMessage()">Open My Apology 💌</button>
+
+<div id="apologyBox">
+
+<p>
+
+<!-- EDIT YOUR MESSAGE HERE -->
+
+My <b>love</b>,<br><br>
+
+I know I made a mistake and I hurt you deeply.  
+I never wanted to make you sad.  
+You are very important to me and I truly feel sorry from my heart.  
+Please understand that I value you and our bond more than anything.  
+I promise to be better and never repeat this again.  
+Please forgive me 🥺💜  
+
+</p>
+
+<button id="forgiveBtn" onclick="forgive()">Please Forgive Me 🥺</button>
 
 <div id="thanks" style="display:none; font-size:22px; margin-top:10px;">
 Thank you for forgiving me 💜
 </div>
 
+</div>
+
 <script>
+
+function showMessage() {
+    document.getElementById("apologyBox").style.display = "block";
+}
 
 let clicked = false;
 
@@ -123,7 +134,7 @@ function forgive() {
 
       let heart = document.createElement("div");
       heart.className = "heart";
-      heart.innerHTML = "💜";   /* PURPLE HEART EMOJI */
+      heart.innerHTML = "💜";
       heart.style.left = Math.random() * 100 + "vw";
 
       document.body.appendChild(heart);
@@ -140,4 +151,4 @@ function forgive() {
 </script>
 
 </body>
-</html>
+    </html>
